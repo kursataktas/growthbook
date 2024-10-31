@@ -117,7 +117,9 @@ const CreateFeatureFlagsGuide = (): React.ReactElement => {
                   style={{
                     fontSize: "17px",
                     fontWeight: 600,
-                    textDecoration: isSDKIntegrated ? "line-through" : "none",
+                    textDecoration: isSDKIntegrated
+                      ? "line-through"
+                      : undefined,
                   }}
                   onClick={() =>
                     setStep({
@@ -171,7 +173,7 @@ const CreateFeatureFlagsGuide = (): React.ReactElement => {
                       fontWeight: 600,
                       textDecoration: environmentsReviewed
                         ? "line-through"
-                        : "none",
+                        : undefined,
                     }}
                     onClick={() =>
                       setStep({
@@ -224,7 +226,9 @@ const CreateFeatureFlagsGuide = (): React.ReactElement => {
                     style={{
                       fontSize: "17px",
                       fontWeight: 600,
-                      textDecoration: attributesSet ? "line-through" : "none",
+                      textDecoration: attributesSet
+                        ? "line-through"
+                        : undefined,
                     }}
                     onClick={() =>
                       setStep({
@@ -276,7 +280,7 @@ const CreateFeatureFlagsGuide = (): React.ReactElement => {
                   style={{
                     fontSize: "17px",
                     fontWeight: 600,
-                    textDecoration: hasFeatures ? "line-through" : "none",
+                    textDecoration: hasFeatures ? "line-through" : undefined,
                   }}
                   onClick={() =>
                     setStep({

@@ -181,7 +181,9 @@ const ExperimentGuide = (): React.ReactElement => {
                   style={{
                     fontSize: "17px",
                     fontWeight: 600,
-                    textDecoration: isSDKIntegrated ? "line-through" : "none",
+                    textDecoration: isSDKIntegrated
+                      ? "line-through"
+                      : undefined,
                   }}
                   onClick={() =>
                     setStep({
@@ -236,7 +238,7 @@ const ExperimentGuide = (): React.ReactElement => {
                       fontWeight: 600,
                       textDecoration: environmentsReviewed
                         ? "line-through"
-                        : "none",
+                        : undefined,
                     }}
                     onClick={() =>
                       setStep({
@@ -292,7 +294,9 @@ const ExperimentGuide = (): React.ReactElement => {
                     style={{
                       fontSize: "17px",
                       fontWeight: 600,
-                      textDecoration: attributesSet ? "line-through" : "none",
+                      textDecoration: attributesSet
+                        ? "line-through"
+                        : undefined,
                     }}
                     onClick={() =>
                       setStep({
@@ -350,7 +354,7 @@ const ExperimentGuide = (): React.ReactElement => {
                       fontWeight: 600,
                       textDecoration: hasStartedGeneratedExp
                         ? "line-through"
-                        : "none",
+                        : undefined,
                     }}
                     onClick={() =>
                       setStep({
@@ -403,7 +407,9 @@ const ExperimentGuide = (): React.ReactElement => {
                     style={{
                       fontSize: "17px",
                       fontWeight: 600,
-                      textDecoration: hasExperiments ? "line-through" : "none",
+                      textDecoration: hasExperiments
+                        ? "line-through"
+                        : undefined,
                     }}
                     onClick={() =>
                       setStep({
@@ -462,7 +468,7 @@ const ExperimentGuide = (): React.ReactElement => {
                       fontWeight: 600,
                       textDecoration: hasStartedExperiment
                         ? "line-through"
-                        : "none",
+                        : undefined,
                     }}
                     onClick={() =>
                       setStep({
@@ -537,7 +543,7 @@ const ExperimentGuide = (): React.ReactElement => {
                   style={{
                     fontSize: "17px",
                     fontWeight: 600,
-                    textDecoration: hasDatasource ? "line-through" : "none",
+                    textDecoration: hasDatasource ? "line-through" : undefined,
                   }}
                   onClick={() =>
                     setStep({
