@@ -1,5 +1,5 @@
 import { MdInfoOutline } from "react-icons/md";
-import { ExperimentInterfaceStringDates } from "back-end/types/experiment";
+import {ExperimentInterfaceStringDates, LinkedFeatureInfo} from "back-end/types/experiment";
 import React from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
 import Tooltip from "@/components/Tooltip/Tooltip";
@@ -8,11 +8,13 @@ import { formatTrafficSplit } from "@/services/utils";
 import SavedGroupTargetingDisplay from "@/components/Features/SavedGroupTargetingDisplay";
 import { HashVersionTooltip } from "@/components/Experiment/HashVersionSelector";
 import useOrgSettings from "@/hooks/useOrgSettings";
+import HelperText from "@/components/Radix/HelperText";
 
 export interface Props {
   phaseIndex?: number | null;
   experiment: ExperimentInterfaceStringDates;
   editTargeting?: (() => void) | null;
+  linkedFeatures: LinkedFeatureInfo[];
 }
 
 const percentFormatter = new Intl.NumberFormat(undefined, {
@@ -24,6 +26,7 @@ export default function TrafficAndTargeting({
   phaseIndex = null,
   experiment,
   editTargeting,
+  linkedFeatures,
 }: Props) {
   const { namespaces } = useOrgSettings();
 
@@ -37,6 +40,13 @@ export default function TrafficAndTargeting({
       phase.namespace.name
     : "";
 
+  const hasLinkedChanges =
+    experiment.hasVisualChangesets ||
+    linkedFeatures.length > 0 ||
+    experiment.hasURLRedirects;
+
+  const isDraft = experiment.status === "draft";
+
   const isBandit = experiment.type === "multi-armed-bandit";
 
   return (
@@ -44,7 +54,7 @@ export default function TrafficAndTargeting({
       {phase ? (
         <>
           <div className="box p-4 my-4">
-            <div className="d-flex flex-row align-items-center justify-content-between text-dark mb-4">
+            <div className="d-flex flex-row align-items-center justify-content-between text-dark">
               <h4 className="m-0">Traffic Allocation</h4>
               <div className="flex-1" />
               {editTargeting &&
@@ -54,8 +64,13 @@ export default function TrafficAndTargeting({
                 </button>
               ) : null}
             </div>
+            {!hasLinkedChanges && (
+                <HelperText status="info">
+                  {isDraft ? "Add an implementation to allocate traffic to your experiment." : "Your experiment does not have an implementation managed by GrowthBook. These settings are informational only."}
+                </HelperText>
+            )}
 
-            <div className="row">
+            <div className="row mt-4">
               <div className="col-4">
                 <div className="h5">Traffic</div>
                 <div>
@@ -126,7 +141,7 @@ export default function TrafficAndTargeting({
           </div>
 
           <div className="box p-4 my-4">
-            <div className="d-flex flex-row align-items-center justify-content-between text-dark mb-4">
+            <div className="d-flex flex-row align-items-center justify-content-between text-dark">
               <h4 className="m-0">Targeting</h4>
               <div className="flex-1" />
               {editTargeting &&
@@ -136,8 +151,13 @@ export default function TrafficAndTargeting({
                 </button>
               ) : null}
             </div>
+            {!hasLinkedChanges && (
+              <HelperText status="info">
+                {isDraft ? "Add an implementation to use targeting." : "Your experiment does not have an implementation managed by GrowthBook. These settings are informational only."}
+              </HelperText>
+            )}
 
-            <div className="row">
+            <div className="row mt-4">
               <div className="col-4">
                 <div className="h5">Attribute Targeting</div>
                 <div>

@@ -14,7 +14,6 @@ import VariationsTable from "@/components/Experiment/VariationsTable";
 import Tooltip from "@/components/Tooltip/Tooltip";
 import TrafficAndTargeting from "@/components/Experiment/TabbedPage/TrafficAndTargeting";
 import AnalysisSettings from "@/components/Experiment/TabbedPage/AnalysisSettings";
-import Callout from "@/components/Radix/Callout";
 
 export interface Props {
   experiment: ExperimentInterfaceStringDates;
@@ -63,8 +62,6 @@ export default function Implementation({
     experiment.hasURLRedirects;
 
   const showEditVariations = editVariations && safeToEdit;
-
-  const isBandit = experiment.type === "multi-armed-bandit";
 
   return (
     <div className="my-4">
@@ -139,24 +136,16 @@ export default function Implementation({
               setVisualEditorModal={setVisualEditorModal}
               setUrlRedirectModal={setUrlRedirectModal}
             />
-          ) : (
-            <Callout status="info" mb="4">
-              This experiment has no directly linked feature flag, visual editor
-              changes, or redirects. Randomization, targeting, and
-              implementation is either being managed by an external system or
-              via legacy Feature Flags in GrowthBook.
-            </Callout>
-          )}
+          ) : null}
         </>
       )}
 
-      {(hasLinkedChanges || isBandit) && (
-        <TrafficAndTargeting
-          experiment={experiment}
-          editTargeting={editTargeting}
-          phaseIndex={phases.length - 1}
-        />
-      )}
+      <TrafficAndTargeting
+        experiment={experiment}
+        editTargeting={editTargeting}
+        phaseIndex={phases.length - 1}
+        linkedFeatures={linkedFeatures}
+      />
 
       <AnalysisSettings experiment={experiment} mutate={mutate} />
     </div>
